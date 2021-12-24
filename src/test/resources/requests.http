@@ -23,13 +23,22 @@ POST http://localhost:8080/media/multi-multipart
 Content-Type: multipart/form-data; boundary=WebBoundary
 
 --WebBoundary
-Content-Disposition: form-data; name="files"; filename="js.jpg"
+Content-Disposition: form-data; name="files"; filename="JavaDev.jpg"
 Content-Type: image/jpeg
 
-< js.jpg
+< JavaDev.jpg
 --WebBoundary
-Content-Disposition: form-data; name="files"; filename="qa.jpg"
+Content-Disposition: form-data; name="files"; filename="Phyton.jpg"
 Content-Type: image/jpeg
 
-< qa.jpg
+< Phyton.jpg
 --WebBoundary--
+
+###
+
+GET http://localhost:8080/courses/getAll
+
+###
+
+GET http://localhost:8080/courses/getById?id=6
+
