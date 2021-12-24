@@ -1,0 +1,35 @@
+###
+
+POST http://localhost:8080/media/bytes
+Content-Type: image/jpeg
+
+< qa.jpg
+
+###
+
+POST http://localhost:8080/media/multipart
+Content-Type: multipart/form-data; boundary=WebBoundary
+
+--WebBoundary
+Content-Disposition: form-data; name="file"; filename="js.jpg"
+Content-Type: image/jpeg
+
+< js.jpg
+--WebBoundary--
+
+###
+
+POST http://localhost:8080/media/multi-multipart
+Content-Type: multipart/form-data; boundary=WebBoundary
+
+--WebBoundary
+Content-Disposition: form-data; name="files"; filename="js.jpg"
+Content-Type: image/jpeg
+
+< js.jpg
+--WebBoundary
+Content-Disposition: form-data; name="files"; filename="qa.jpg"
+Content-Type: image/jpeg
+
+< qa.jpg
+--WebBoundary--
