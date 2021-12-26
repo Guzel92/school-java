@@ -7,11 +7,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CourseSaveRequestDTO {
+public class RegisterSaveResponseDTO {
+private Registration registration;
+@NoArgsConstructor
+    @AllArgsConstructor
+    @Data
+    public static class Registration{
     private long id;
     private String name;
     private int price;
-    private String image;
-    private int numberseats;
-
+    private String customerName;
+}
 }

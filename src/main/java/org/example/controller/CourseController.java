@@ -3,6 +3,7 @@ package org.example.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.CourseGetAllResponseDTO;
 import org.example.dto.CourseGetByIdResponseDTO;
+import org.example.dto.CourseSaveRequestDTO;
 import org.example.dto.CourseSaveResponseDTO;
 import org.example.manager.CourseManager;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,10 @@ public class CourseController {
     @PostMapping("/save")
     public CourseSaveResponseDTO save(@RequestBody CourseSaveRequestDTO requestDTO){
         return manager.save(requestDTO);
+    }
+    @PostMapping("/removeById")
+    public void removeByIdFromParam(@RequestParam long id) {
+        manager.removeById(id);
     }
 
 }

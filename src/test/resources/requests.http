@@ -42,3 +42,43 @@ GET http://localhost:8080/courses/getAll
 
 GET http://localhost:8080/courses/getById?id=6
 
+###
+
+POST http://localhost:8080/courses/save
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "Java",
+  "price":25000,
+  "numberseats": 6
+}
+
+###
+
+POST http://localhost:8080/courses/removeById?id=6
+
+###
+
+GET http://localhost:8080/registrations/getAll
+
+###
+
+GET http://localhost:8080/registrations/getById?id=10
+
+###
+
+POST http://localhost:8080/registrations/save
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "Java",
+  "price": 25000,
+  "customerName":"Alan"
+}
+
+###
+
+GET http://localhost:8080/registrations/getParticipants?id=7
+

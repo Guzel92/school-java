@@ -8,5 +8,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CourseSaveResponseDTO {
-
+private Course course;
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Data
+    public static class Course{
+        private long id;
+        private String name;
+        private int price;
+        private String image;
+        private int numberseats;
+    }
 }

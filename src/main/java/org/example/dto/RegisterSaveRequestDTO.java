@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CourseSaveRequestDTO {
+public class RegisterSaveRequestDTO {
     private long id;
     private String name;
     private int price;
-    private String image;
-    private int numberseats;
-
+    private String customerName;
 }
