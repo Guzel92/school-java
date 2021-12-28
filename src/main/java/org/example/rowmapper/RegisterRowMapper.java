@@ -13,8 +13,8 @@ public class RegisterRowMapper implements RowMapper<RegisterModel> {
     @Override
     public RegisterModel mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new RegisterModel(
-
                 rs.getLong("id"),
+                rs.getLong("course_id"),
                 rs.getString("name"),
                 rs.getInt("price"),
                 rs.getString("customer_name")

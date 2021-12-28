@@ -14,6 +14,7 @@ public class CourseGetByIdResponseDTO {
     @Data
     public static class Course {
         private long id;
+        private long courseId;
         private String name;
         private int price;
         private String image;

@@ -17,27 +17,29 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class RegisterManager {
     private final NamedParameterJdbcTemplate template;
-    private final RegisterRowMapper registerRowMapper;
+    private final RegisterRowMapper registerRowmapper;
 
     public RegisterResponseDTO getAll() {
         final List<RegisterModel> items = template.query(
                 //language=PostgreSQL
                 """
-                        SELECT id,name,price,customer_name FROM registrations
+                        SELECT id,course_id, name, price,customer_name FROM registrations
                         WHERE confirmed=TRUE
                         ORDER BY id
                         LIMIT 500
                         """,
-                registerRowMapper
+                registerRowmapper
         );
         final RegisterResponseDTO responseDTO = new RegisterResponseDTO(new ArrayList<>(items.size()));
         for (RegisterModel item : items) {
             responseDTO.getRegistrations().add(new RegisterResponseDTO.Registration(
                     item.getId(),
+                    item.getCourseId(),
                     item.getName(),
                     item.getPrice(),
                     item.getCustomerName()
             ));
+
         }
         return responseDTO;
     }
@@ -47,23 +49,24 @@ public class RegisterManager {
             final RegisterModel item = template.queryForObject(
                     //language=PostgreSQL
                     """
-                        SELECT id,name, price,customer_name FROM registrations
-                        WHERE id= :id AND confirmed=TRUE
+                        SELECT id, course_id,name, price,customer_name FROM registrations
+                        WHERE id=:id AND confirmed=TRUE
                         """,
-                Map.of("id", id),
-                registerRowMapper
-        );
-        final RegisterGetByIdResponseDTO responseDTO = new RegisterGetByIdResponseDTO(new RegisterGetByIdResponseDTO.Registration(
-                item.getId(),
-                item.getName(),
-                item.getPrice(),
-                item.getCustomerName()
-        ));
-        return responseDTO;
-        }catch (EmptyResultDataAccessException e){
-throw new RegisterNotFoundException(e);
+                    Map.of("id",id),
+                    registerRowmapper
+            );
+            final RegisterGetByIdResponseDTO responseDTO = new RegisterGetByIdResponseDTO
+                    (new RegisterGetByIdResponseDTO.Registration(
+                            item.getId(),
+                            item.getCourseId(),
+                            item.getName(),
+                            item.getPrice(),
+                            item.getCustomerName()
+                    ));
+            return responseDTO ;
+        }catch (EmptyResultDataAccessException e) {
+            throw new RegisterNotFoundException(e);
         }
-
     }
 
     public RegisterSaveResponseDTO save(RegisterSaveRequestDTO requestDTO) {
@@ -74,43 +77,48 @@ throw new RegisterNotFoundException(e);
         final RegisterModel item = template.queryForObject(
                 //language=PostgreSQL
                 """
-INSERT INTO registrations ( name, price, customer_name) VALUES (:name,:price,:customer_name)
-RETURNING id,name,price,customer_name
-""",
+                        INSERT INTO registrations (course_id,name, price, customer_name) VALUES (:course_id,:name,:price,:customer_name)
+                        RETURNING id,course_id,name,price,customer_name
+                        """,
                 Map.of(
+                        "course_id",requestDTO.getCourseId(),
                         "name", requestDTO.getName(),
-                        "price",requestDTO.getPrice(),
-                        "customer_name",requestDTO.getCustomerName()
+                        "price", requestDTO.getPrice(),
+                        "customer_name", requestDTO.getCustomerName()
                 ),
-                registerRowMapper
+                registerRowmapper
         );
         final RegisterSaveResponseDTO responseDTO = new RegisterSaveResponseDTO(new RegisterSaveResponseDTO.Registration(
                 item.getId(),
+                item.getCourseId(),
                 item.getName(),
                 item.getPrice(),
                 item.getCustomerName()
         ));
         return responseDTO;
     }
+
     private RegisterSaveResponseDTO update(RegisterSaveRequestDTO requestDTO) {
         try {
             final RegisterModel item = template.queryForObject(
                     //language=PostgreSQL
                     """
-UPDATE registrations SET id= :id, name= :name, price= :price, customer_name= :customer_name
-WHERE id= :id AND confirmed=TRUE
-RETURNING id,name,price,customer_name
-""",
+                        UPDATE registrations  SET course_id=:course_id,name=:name,price=:price,customer_name=:customer_name
+                        WHERE id=:id AND confirmed= TRUE
+                        RETURNING id,course_id,name,price,customer_name
+                        """,
                     Map.of(
                             "id",requestDTO.getId(),
+                            "course_id",requestDTO.getCourseId(),
                             "name", requestDTO.getName(),
                             "price", requestDTO.getPrice(),
                             "customer_name", requestDTO.getCustomerName()
                     ),
-                    registerRowMapper
+                    registerRowmapper
             );
             final RegisterSaveResponseDTO responseDTO = new RegisterSaveResponseDTO(new RegisterSaveResponseDTO.Registration(
                     item.getId(),
+                    item.getCourseId(),
                     item.getName(),
                     item.getPrice(),
                     item.getCustomerName()
@@ -119,36 +127,36 @@ RETURNING id,name,price,customer_name
         }catch(EmptyResultDataAccessException e) {
             throw new RegisterNotFoundException(e);
         }
-}
-
-    public ParticipantsDTO getParticipants(long id) {
+    }
+    public ParticipantsDTO getParticipants (long courseId) {
         int numberseats = template.queryForObject(
                 //language=PostgreSQL
                 """
                     SELECT numberseats FROM courses
                     WHERE id=:id
                     """,
-                Map.of("id",id),
+                Map.of("id",courseId),
                 Integer.class
         );
 
         List<RegisterModel> models = template.query(
                 //language=PostgreSQL
                 """
-                    SELECT id,name,price,customer_name FROM registrations
-                    WHERE confirmed=TRUE AND id= :id
+                    SELECT id,name,course_id,price,customer_name FROM registrations
+                    WHERE confirmed=TRUE AND course_id=:course_id
                     ORDER BY created
                     LIMIT :limit;
                     """,
                 Map.of(
-                        "id",id,
+                        "course_id",courseId,
                         "limit",numberseats),
-                registerRowMapper);
+                registerRowmapper);
 
         final ParticipantsDTO participantsDTO = new ParticipantsDTO(new ArrayList<>(models.size()));
         for (RegisterModel item : models) {
             participantsDTO.getParticipants().add(new ParticipantsDTO.Participants(
                     item.getId(),
+                    item.getCourseId(),
                     item.getName(),
                     item.getPrice(),
                     item.getCustomerName()
@@ -158,3 +166,14 @@ RETURNING id,name,price,customer_name
         return participantsDTO;
     }
 }
+
+
+// private List<RegisterResponseDTO> items =new ArrayList<>();
+
+//   public List<RegisterResponseDTO> getParti (int page ){
+//      int fromIndex =0;
+//     int toIndex = Math.min();
+//    return items.subList(fromIndex,toIndex);
+// }
+
+

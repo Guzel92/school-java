@@ -27,7 +27,7 @@ public class CourseManager {
         final List<CourseModel> items = template.query(
                 //language=PostgreSQL
                 """
-                        SELECT id, name, price,image,numberseats FROM courses
+                        SELECT id, course_id, name, price,image,numberseats FROM courses
                         WHERE removed=FALSE
                         ORDER BY id
                         LIMIT 500
@@ -39,6 +39,7 @@ public class CourseManager {
         for (CourseModel item : items) {
             responseDTO.getCourses().add(new CourseGetAllResponseDTO.Course(
                     item.getId(),
+                    item.getCourseId(),
                     item.getName(),
                     item.getPrice(),
                     item.getImage(),
@@ -54,7 +55,7 @@ public class CourseManager {
             final CourseModel item = template.queryForObject(
                     //language=PostgreSQL
                     """
-                            SELECT id, name, price,image,numberseats FROM courses
+                            SELECT id,course_id, name, price,image,numberseats FROM courses
                             WHERE id=:id AND removed=FALSE
                             """,
                     Map.of("id",id),
@@ -63,6 +64,7 @@ public class CourseManager {
             final CourseGetByIdResponseDTO responseDTO = new CourseGetByIdResponseDTO(
                     new CourseGetByIdResponseDTO.Course(
                             item.getId(),
+                            item.getCourseId(),
                             item.getName(),
                             item.getPrice(),
                             item.getImage(),
@@ -83,10 +85,10 @@ public class CourseManager {
         final CourseModel item = template.queryForObject(
                 //language=PostgreSQL
                 """
-                        INSERT INTO courses( name, price, image,numberseats) VALUES (:name, :price, :image,:numberseats)
-                        RETURNING id,name,price, image,numberseats       
+                        INSERT INTO courses( course_id, name, price, image,numberseats) VALUES (:course_id, :name, :price, :image,:numberseats)
+                        RETURNING id,course_id,name,price, image,numberseats       
                                                """,
-                Map.of(
+                Map.of("course_id",requestDTO.getCourseId(),
                         "name", requestDTO.getName(),
                         "price", requestDTO.getPrice(),
                         "image", getImage(requestDTO.getImage()),
@@ -96,6 +98,7 @@ public class CourseManager {
         );
         final CourseSaveResponseDTO responseDTO = new CourseSaveResponseDTO(new CourseSaveResponseDTO.Course(
                 item.getId(),
+                item.getCourseId(),
                 item.getName(),
                 item.getPrice(),
                 item.getImage(),
@@ -123,10 +126,11 @@ public class CourseManager {
                     """
                             UPDATE courses SET name= :name,price= :price, image=:image, numberseats=:numberseats
                             WHERE id=:id AND removed=FALSE
-                            RETURNING id,name,price, image, numberseats       
+                            RETURNING id,course_id,name,price, image, numberseats       
                                                    """,
                     Map.of(
                             "id", requestDTO.getId(),
+                            "course_id",requestDTO.getCourseId(),
                             "name", requestDTO.getName(),
                             "price", requestDTO.getPrice(),
                             "image", getImage(requestDTO.getImage()),
@@ -136,6 +140,7 @@ public class CourseManager {
             );
             final CourseSaveResponseDTO responseDTO = new CourseSaveResponseDTO(new CourseSaveResponseDTO.Course(
                     item.getId(),
+                    item.getCourseId(),
                     item.getName(),
                     item.getPrice(),
                     item.getImage(),

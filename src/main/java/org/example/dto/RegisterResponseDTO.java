@@ -17,6 +17,7 @@ private List<Registration> registrations;
     @Data
     public static class Registration{
     private long id;
+    private long courseId;
     private String name;
     private int price;
     private String customerName;

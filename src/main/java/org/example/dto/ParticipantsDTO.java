@@ -16,6 +16,7 @@ private List<Participants> participants;
     @Data
 public static class Participants{
     private long id;
+    private long courseId;
     private String name;
     private int price;
     private String customerName;

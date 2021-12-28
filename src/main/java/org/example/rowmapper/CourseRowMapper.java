@@ -13,6 +13,7 @@ public class CourseRowMapper implements RowMapper<CourseModel> {
     public CourseModel mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new CourseModel(
                 rs.getLong("id"),
+                rs.getLong("course_id"),
                 rs.getString("name"),
                 rs.getInt("price"),
                 rs.getString("image"),

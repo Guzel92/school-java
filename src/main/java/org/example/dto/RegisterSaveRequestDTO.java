@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class RegisterSaveRequestDTO {
     private long id;
+    private long courseId;
     private String name;
     private int price;
     private String customerName;

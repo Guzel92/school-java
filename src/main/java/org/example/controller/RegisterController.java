@@ -24,8 +24,8 @@ public RegisterGetByIdResponseDTO getById(@RequestParam long id){
     return manager.save(requestDTO);
 }
 @GetMapping("/getParticipants")
-public ParticipantsDTO getParticipants(@RequestParam long id){
-    return manager.getParticipants(id);
+public ParticipantsDTO getParticipants(@RequestParam long courseId){
+    return manager.getParticipants(courseId);
 }
 
 }
