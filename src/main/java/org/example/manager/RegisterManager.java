@@ -69,6 +69,19 @@ public class RegisterManager {
         }
     }
 
+    public void removeById(long id) {
+        final int affected = template.update(
+                //language=PostgreSQL
+                """
+                        UPDATE registrations SET removed=TRUE WHERE id= :id
+                        """,
+                Map.of("id", id)
+        );
+        if (affected==0) {
+            throw new RegisterNotFoundException("register with id" + id + "not found");
+        }
+    }
+
     public RegisterSaveResponseDTO save(RegisterSaveRequestDTO requestDTO) {
         return requestDTO.getId() == 0 ? create(requestDTO) : update(requestDTO);
     }
@@ -143,7 +156,7 @@ public class RegisterManager {
                 //language=PostgreSQL
                 """
                     SELECT id,name,course_id,price,customer_name FROM registrations
-                    WHERE confirmed=TRUE AND course_id=:course_id
+                    WHERE removed=FALSE AND course_id=:course_id
                     ORDER BY created
                     LIMIT :limit;
                     """,
@@ -165,15 +178,11 @@ public class RegisterManager {
         }
         return participantsDTO;
     }
+
+
 }
 
 
-// private List<RegisterResponseDTO> items =new ArrayList<>();
 
-//   public List<RegisterResponseDTO> getParti (int page ){
-//      int fromIndex =0;
-//     int toIndex = Math.min();
-//    return items.subList(fromIndex,toIndex);
-// }
 
 

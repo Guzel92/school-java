@@ -27,7 +27,7 @@ public class CourseManager {
         final List<CourseModel> items = template.query(
                 //language=PostgreSQL
                 """
-                        SELECT id, course_id, name, price,image,numberseats FROM courses
+                        SELECT id, course_id,name, price,image,numberseats FROM courses
                         WHERE removed=FALSE
                         ORDER BY id
                         LIMIT 500
@@ -55,7 +55,7 @@ public class CourseManager {
             final CourseModel item = template.queryForObject(
                     //language=PostgreSQL
                     """
-                            SELECT id,course_id, name, price,image,numberseats FROM courses
+                            SELECT id, course_id, name, price,image,numberseats FROM courses
                             WHERE id=:id AND removed=FALSE
                             """,
                     Map.of("id",id),
@@ -115,7 +115,7 @@ public class CourseManager {
                 Map.of("id", id)
         );
         if (affected==0){
-            throw new CourseNotFoundException("product with id" + id + "not found");
+            throw new CourseNotFoundException("course with id" + id + "not found");
         }
     }
 

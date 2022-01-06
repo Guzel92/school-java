@@ -50,14 +50,14 @@ Content-Type: application/json
 {
   "id": 0,
   "courseId": 6,
-  "name": "Java",
-  "price":25000,
-  "numberseats": 6
+  "name": "HTML",
+  "price":5000,
+  "numberseats": 3
 }
 
 ###
 
-POST http://localhost:8080/courses/removeById?id=6
+POST http://localhost:8080/courses/removeById?id=34
 
 ###
 
@@ -65,7 +65,11 @@ GET http://localhost:8080/registrations/getAll
 
 ###
 
-GET http://localhost:8080/registrations/getById?id=8
+GET http://localhost:8080/registrations/getById?id=11
+
+###
+
+POST http://localhost:8080/registrations/removeById?id=15
 
 ###
 
@@ -74,12 +78,13 @@ Content-Type: application/json
 
 {
   "id": 0,
-  "name": "Java",
-  "price": 25000,
-  "customerName":"Alan"
+  "courseId": 6,
+  "name": "HTML",
+  "price": 5000,
+  "customerName":"Alina"
 }
 
 ###
 
-GET http://localhost:8080/registrations/getParticipants?courseId=0
+GET http://localhost:8080/registrations/getParticipants?courseId=6
 

@@ -19,6 +19,11 @@ private final RegisterManager manager;
 public RegisterGetByIdResponseDTO getById(@RequestParam long id){
     return manager.getById(id);
 }
+    @PostMapping("/removeById")
+    public void removeByIdFromParam(@RequestParam long id) {
+        manager.removeById(id);
+    }
+
 @PostMapping("/save")
     public RegisterSaveResponseDTO save(@RequestBody RegisterSaveRequestDTO requestDTO){
     return manager.save(requestDTO);
