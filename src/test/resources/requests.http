@@ -40,7 +40,7 @@ GET http://localhost:8080/courses/getAll
 
 ###
 
-GET http://localhost:8080/courses/getById?id=2
+GET http://localhost:8080/courses/getById?id=1
 
 ###
 

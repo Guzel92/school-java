@@ -78,5 +78,26 @@ class CourseCRUDTest {
                                         """
                         )
                 );
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("courses/getById")
+                        .param("id",String.valueOf(1))
+        )
+                .andExpectAll(
+                        MockMvcResultMatchers.status().isOk(),
+                        MockMvcResultMatchers.content().json(
+                         //language=JSON
+                                """
+                                        {
+                                          "course": {
+                                            "id": 1,
+                                            "name": "Java developer",
+                                            "price": 20000,
+                                            "image": "037646e7-1b56-4df9-8fe3-6c0bd9937cf0.jpg",
+                                            "numberseats": 10
+                                          }
+                                        }
+                                        """
+                        )
+                );
     }
 }
