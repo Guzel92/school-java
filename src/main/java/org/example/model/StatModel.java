@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CourseModel {
-    private long id;
-    private String name;
-    private int price;
-    private String image;
-    private int numberseats;
+public class StatModel {
+ private long id;
+ private long courseId;
+ private long registerId;
+ private String name;
+ private int price;
+ private int qty;
 }

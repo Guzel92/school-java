@@ -5,20 +5,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-@AllArgsConstructor
+
 @NoArgsConstructor
-@Data
-public class CourseGetAllResponseDTO {
-    private List<Course> courses;
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
-    public static class Course{
+public class StatGetSumResponseDTO {
+    private List<Register> positions;
+
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Data
+    public static class Register{
         private long id;
+        private long courseId;
+        private long registerId;
         private String name;
         private int price;
-        private String image;
-        private int numberseats;
-    }
+        private int qty;
 
+    }
 }

@@ -40,7 +40,7 @@ GET http://localhost:8080/courses/getAll
 
 ###
 
-GET http://localhost:8080/courses/getById?id=3
+GET http://localhost:8080/courses/getById?id=2
 
 ###
 
@@ -49,7 +49,6 @@ Content-Type: application/json
 
 {
   "id": 0,
-  "courseId": 6,
   "name": "HTML",
   "price":5000,
   "numberseats": 3
@@ -57,7 +56,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/courses/removeById?id=34
+POST http://localhost:8080/courses/removeById?id=6
 
 ###
 
@@ -65,11 +64,11 @@ GET http://localhost:8080/registrations/getAll
 
 ###
 
-GET http://localhost:8080/registrations/getById?id=11
+GET http://localhost:8080/registrations/getById?id=5
 
 ###
 
-POST http://localhost:8080/registrations/removeById?id=15
+POST http://localhost:8080/registrations/removeById?id=16
 
 ###
 
@@ -78,13 +77,20 @@ Content-Type: application/json
 
 {
   "id": 0,
-  "courseId": 6,
-  "name": "HTML",
-  "price": 5000,
-  "customerName":"Alina"
+  "courseId": 5,
+  "name": "Android developer",
+  "price": 12000,
+  "customerName":"Oskar"
 }
 
 ###
 
-GET http://localhost:8080/registrations/getParticipants?courseId=6
+GET http://localhost:8080/registrations/getParticipants?courseId=1
 
+###
+
+GET http://localhost:8080/register_positions/getAll
+
+###
+
+GET http://localhost:8080/register_positions/getSum?courseId=5

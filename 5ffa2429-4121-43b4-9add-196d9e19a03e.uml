@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>5ffa2429-4121-43b4-9add-196d9e19a03e</OriginalElement>
+  <nodes>
+    <node x="3.5" y="0.0">5ffa2429-4121-43b4-9add-196d9e19a03e.TABLE:db.public.courses</node>
+    <node x="32.0" y="482.0">5ffa2429-4121-43b4-9add-196d9e19a03e.TABLE:db.public.register_positions</node>
+    <node x="63.0" y="241.0">5ffa2429-4121-43b4-9add-196d9e19a03e.TABLE:db.public.registrations</node>
+    <node x="325.0" y="0.0">5ffa2429-4121-43b4-9add-196d9e19a03e.VIEW:db.public.register_stats</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="5ffa2429-4121-43b4-9add-196d9e19a03e.TABLE:db.public.register_positions" target="5ffa2429-4121-43b4-9add-196d9e19a03e.TABLE:db.public.registrations" relationship="REFERENCES">
+      <point x="40.0" y="-83.5" />
+      <point x="152.0" y="456.0" />
+      <point x="171.5" y="456.0" />
+      <point x="0.0" y="94.5" />
+    </edge>
+    <edge source="5ffa2429-4121-43b4-9add-196d9e19a03e.TABLE:db.public.registrations" target="5ffa2429-4121-43b4-9add-196d9e19a03e.TABLE:db.public.courses" relationship="REFERENCES">
+      <point x="0.0" y="-94.5" />
+      <point x="171.5" y="215.0" />
+      <point x="112.0" y="215.0" />
+      <point x="0.0" y="94.5" />
+    </edge>
+    <edge source="5ffa2429-4121-43b4-9add-196d9e19a03e.TABLE:db.public.register_positions" target="5ffa2429-4121-43b4-9add-196d9e19a03e.TABLE:db.public.courses" relationship="REFERENCES">
+      <point x="-40.0" y="-83.5" />
+      <point x="72.0" y="456.0" />
+      <point x="52.5" y="456.0" />
+      <point x="52.5" y="215.0" />
+      <point x="112.0" y="215.0" />
+      <point x="0.0" y="94.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.4857997010463378" showDependencies="false" x="227.5" y="324.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Comments</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

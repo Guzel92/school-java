@@ -24,7 +24,7 @@ public class RegisterManager {
                 //language=PostgreSQL
                 """
                         SELECT id,course_id, name, price,customer_name FROM registrations
-                        WHERE confirmed=TRUE
+                        WHERE removed=FALSE
                         ORDER BY id
                         LIMIT 500
                         """,
@@ -50,7 +50,7 @@ public class RegisterManager {
                     //language=PostgreSQL
                     """
                         SELECT id, course_id,name, price,customer_name FROM registrations
-                        WHERE id=:id AND confirmed=TRUE
+                        WHERE id=:id AND removed=FALSE
                         """,
                     Map.of("id",id),
                     registerRowmapper
@@ -117,7 +117,7 @@ public class RegisterManager {
                     //language=PostgreSQL
                     """
                         UPDATE registrations  SET course_id=:course_id,name=:name,price=:price,customer_name=:customer_name
-                        WHERE id=:id AND confirmed= TRUE
+                        WHERE id=:id AND removed= FALSE
                         RETURNING id,course_id,name,price,customer_name
                         """,
                     Map.of(

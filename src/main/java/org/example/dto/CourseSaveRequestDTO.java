@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class CourseSaveRequestDTO {
     private long id;
-    private long courseId;
     private String name;
     private int price;
     private String image;
