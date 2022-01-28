@@ -68,7 +68,7 @@ GET http://localhost:8080/registrations/getById?id=5
 
 ###
 
-POST http://localhost:8080/registrations/removeById?id=16
+POST http://localhost:8080/registrations/removeById?id=13
 
 ###
 
@@ -93,4 +93,4 @@ GET http://localhost:8080/register_positions/getAll
 
 ###
 
-GET http://localhost:8080/register_positions/getSum?courseId=5
+GET http://localhost:8080/register_positions/getSum?courseId=1
